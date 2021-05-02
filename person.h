@@ -1,6 +1,9 @@
+#define MAX_NAME 8
+#define MAX_ADDRESS 8
+
 typedef struct person {
-    char name[8];
-    char address[8];
+    char name[MAX_NAME];
+    char address[MAX_ADDRESS];
 } Person;
 
 void fill_person_data(Person * person, char * name, char * address);

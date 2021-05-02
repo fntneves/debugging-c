@@ -3,8 +3,8 @@
 #include "person.h"
 
 void fill_person_data(Person * person, char * name, char * address) {
-    strncpy(person->name, name, 8);
-    strncpy(person->address, address, 8);
+    strncpy(person->name, name, MAX_NAME);
+    strncpy(person->address, address, MAX_ADDRESS);
 }
 
 void print_person(Person * person) {
