@@ -291,7 +291,7 @@ Yay, we got rid of weird bugs!
 
 This is just an overview of the power of using GDB to debug C programs.
 
-You are free to explore evething you want. Do not be afraid to experiment, explore and ruin your programs.
+You are free to explore everything you want. Do not be afraid to experiment, explore and ruin your programs.
 
 Let curiosity and adventure drive you in this journey.
 
