@@ -253,7 +253,7 @@ Thus, we need to increase the amount allocated for name and address fields by on
 // person.h
 typedef struct person {
     char name[MAX_NAME + 1];
-    char address[MAX_NAME + 1];
+    char address[MAX_ADDRESS + 1];
 } Person;
 
 // person.c
