@@ -3,10 +3,11 @@
 #include <string.h>
 
 int factorial(int n) {
-    int total = 0;
+    int total = 1;
 
     while (n > 0) {
         total = total * n;
+        n--;
     }
 
     return total;
