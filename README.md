@@ -243,17 +243,27 @@ person address: Portuga
 
 OK, we need to fix this. Let's examine the code.
 We allocate 8 bytes for each struct `Person`'s field: `name` and `address`.
-When we call the `strncpy` in the `fill_person_data`, we are filling the whole space (8 bytes) without ensuring the last byte is for the `'\0'` character.
+When we call the `strncpy` in the `fill_person_data`, it is not guaranteed that it ends with the `'\0'` character, specially if the length of the string is equals to the allocated space. As we are filling the whole space (8 bytes) with the name `Gilbero`, there is no space for `'\0'` as the final character.
 
-Actually, we need to consider this character to have a delimited string, otherwise `printf` will never know when to the string ends and will try to print everything that follows until a `'\0'` is found.
+But we need to consider this character to have a delimited string, otherwise `printf` will never know when to the string ends and will try to print everything that follows until a `'\0'` is found.
 
-Thus, we need to increase the amount allocated for name and address fields by one byte (in `person.h`), in order to include the `'\0'` resulting from the `strncpy` in the `fill_person_data`.
+Thus, we need to increase the amount allocated for name and address fields by one byte (in `person.h`), in order to include the `'\0'` resulting from the `strncpy` in the `fill_person_data`, and ensuring the last char of the string is `'\0'` after copying it.
 
-```
+```c
+// person.h
 typedef struct person {
     char name[MAX_NAME + 1];
     char address[MAX_NAME + 1];
 } Person;
+
+// person.c
+void fill_person_data(Person * person, char * name, char * address) {
+    strncpy(person->name, name, MAX_NAME);
+    strncpy(person->address, address, MAX_ADDRESS);
+
+    person->name[MAX_NAME] = '\0';
+    person->address[MAX_ADDRESS] = '\0';
+}
 ```
 
 Inspecting again the memory right before the `print_person` function call, we see there is a `'\0'` char that is now part of the name and the address.
