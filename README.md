@@ -15,12 +15,17 @@ In this demo we will use C. (Hey Operating Systems guys!)
 Well, debugging compiled programs is a mess...
 Let me show how it looks like.
 
-Let's compile the _factorial_ program using the typical command
+Let's compile the _factorial_ program using the typical command:
+
 `gcc factorial.c -o factorial`
 
 Now, let's debug it!
-`gdb factorial 5`
-`(gdb) start`
+
+```
+$ gdb factorial 5
+...
+(gdb) start
+```
 
 What a nightmare! I hope you love assembly. That's all, folks. 👋
 
@@ -28,7 +33,7 @@ What a nightmare! I hope you love assembly. That's all, folks. 👋
 
 No. Wait. I am just kidding.
 
-In fact, you can see the source code. However, we first need to prepare our program for debugging. To do so, we need to use the `-g` flag to keep the (symbols)[https://www.tutorialspoint.com/gnu_debugger/gdb_debugging_symbols.htm]:
+In fact, you can see the source code. However, we first need to prepare our program for debugging. To do so, we need to use the `-g` flag to keep the [symbols](https://www.tutorialspoint.com/gnu_debugger/gdb_debugging_symbols.htm):
 
 `gcc -g factorial.c -o factorial`
 
@@ -64,7 +69,7 @@ In fact, you can see the source code. However, we first need to prepare our prog
 - TUI (Text User Interface)
     - `tui enable` activates the Text User Interface
     - `tui disable` deactivates the Text User Interface
-    - See all action keys (here)[https://sourceware.org/gdb/onlinedocs/gdb/TUI-Overview.html#TUI-Overview]
+    - See all action keys [here](https://sourceware.org/gdb/onlinedocs/gdb/TUI-Overview.html#TUI-Overview)
 
 ## Debugging in Practice
 
@@ -76,8 +81,11 @@ The `factorial.c` program calculates the factorial of a number given by argument
 Currently, there is a bug that hangs the program and we want to know what is happening.
 Let's analyse it using `gdb`.
 
-`gdb factorial`
-`run 5`
+```
+$ gdb factorial
+...
+(gdb) run 5
+```
 
 The program does not terminate. Let's interrupt the execution by hitting CTRL+C and see what's happening.
 When we hit CTRL+C, the debugger interrupts the program execution and displays the current line being executed.
@@ -108,8 +116,11 @@ The program `print_person` creates a Person and prints their details.
 However, it exits with a _Segmentation Fault_ error before printing the details.
 
 Let's inspect it:
-`gdb print_person`
-`run`
+```
+$ gdb print_person
+...
+(gdb) run
+```
 
 Here it is.
 
@@ -169,6 +180,7 @@ The name is being printed along with the address, which is not expected.
 In order to investigate the root cause of it, let's put a breakpoint right before calling the `print_person` function and see what is the state of the `person` struct.
 
 `print person` prints a memory address. Let's visit the pointer's value.
+
 `print *person` shows the current values of the `Person` struct.
 
 ```
@@ -274,3 +286,14 @@ You are free to explore evething you want. Do not be afraid to experiment, explo
 Let curiosity and adventure drive you in this journey.
 
 See you there.
+
+## References
+
+[GDB - Debugging Symbols](https://www.tutorialspoint.com/gnu_debugger/gdb_debugging_symbols.htm)
+
+[GDB Documentation](https://sourceware.org/gdb/onlinedocs/gdb/)
+- [Examining Memory](https://sourceware.org/gdb/current/onlinedocs/gdb/Memory.html)
+
+[GDB to LLDB command map](https://lldb.llvm.org/use/map.html#evaluating-expressions)
+
+[Debugging programs with multiple processes](https://docs.huihoo.com/redhat/rhel-4-docs/rhel-gdb-en-4/processes.html)
